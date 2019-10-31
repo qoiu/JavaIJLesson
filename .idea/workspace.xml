@@ -15,7 +15,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1SxsPLMF7BriLROKsB4eEdCeOCu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value=" System.out.println(&quot;Hello World!&quot;);" />
@@ -65,5 +69,16 @@
       <updated>1572516556695</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
