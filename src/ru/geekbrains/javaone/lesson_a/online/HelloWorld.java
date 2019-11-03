@@ -23,9 +23,100 @@ import java.util.Scanner;
  */
 public class HelloWorld {
     public static void main(String[] args) {
+        //allTypes();
+        //System.out.println(calculation(2.0,3.0,7.0,5.0));
+        //System.out.println(inRange(7, 1));
+        //System.out.println(inputRange());
+        //System.out.println(isPositive(2));
+        //System.out.println(isNegative(2));
+       // hiName("Никита");
+        leap();
+    }
+
+    private static void allTypes() {
+        boolean b = true;
+        byte byt = 1;
+        short sh = 34;
+        int i = 10;
+        long ln = 25;
+        char c = 77;
+        char ch = 'a';
+        double db = 32.7;
+        float fl = 36f;
+        String s="Hello world!";
+        /*System.out.println(c);
+        System.out.println(ch);
+        System.out.println(i);
+        ++i;
+        System.out.println(i);
+        i++;
+        System.out.println(i);
+*/
+    }
+
+    private static int calculation(int a, int b, int c, int d) {
+        return a * (b + (c / d));
+    }
+
+    private static double calculation(double a, double b, double c, double d) {
+        return a * (b + (c / d));
+    }
+
+    private static boolean inRange(int a, int b) {
+        int c = a + b;
+        if (c >= 10 && c <= 20) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean inputRange(){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Введите a");
+       int a= sc.nextInt();
+        System.out.println("Введите b");
+       int b=sc.nextInt();
+       int c=a+b;
+        if (c >= 10 && c <= 20) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isPositive(int a){
+        if(a<0){
+            return false;
+        }else {
+            return true;
+        }
 
     }
 
+    public static boolean isNegative(int a){
+        return !isPositive(a);
+    }
 
+    public static void hiName(String s){
+        System.out.println("Привет, " + s + "!");
+    }
+    public static void leap(){
+        int year=2019;
+//проверить дополнительные условия в одну строчку не смог. Не хватило времени. Разберусь чуть позже.
+        if (year % 4==0){
+            if (year % 100==0){
+                if (year % 400==0){
+                    System.out.println("Високосный");
+                } else {
+                    System.out.println("Не високосный");
+                }
+
+            }else{
+                System.out.println("Високосный");
+            }
+        }else{
+            System.out.println("Не високосный");
+        }
     }
 }
