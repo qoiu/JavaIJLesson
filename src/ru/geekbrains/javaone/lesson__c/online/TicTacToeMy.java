@@ -16,9 +16,19 @@ public class TicTacToeMy {
     private static final char DOT_AI = 'O';
     private static final char DOT_EMPTY = '.';
 
+    private static void showValue(){
+        for(int i=0;i<fieldSizeY;i++){
+            System.out.print("\n|");
+            for(int j=0;j<fieldSizeX;j++){
+                System.out.print(fieldValue[i][j] + "|");
+            }
+        }
+        System.out.print("\n----------");
+    }
+
     private static void initField(){
-        fieldSizeX=6;
-        fieldSizeY=6;
+        fieldSizeX=5;
+        fieldSizeY=5;
         lengthWin=4;//>=3
         fieldValue=new int[fieldSizeY][fieldSizeX];
         field = new char[fieldSizeY][fieldSizeX];
@@ -37,62 +47,48 @@ public class TicTacToeMy {
         }
         System.out.print("\n-----------");
     }
-    private static void showValue(){
-        for(int i=0;i<fieldSizeY;i++){
-            System.out.print("\n|");
-            for(int j=0;j<fieldSizeX;j++){
-                System.out.print(fieldValue[i][j] + "|");
-            }
-        }
-        System.out.print("\n----------");
-    }
     private static void humanTurn(){
         int x,y;
         do {
             System.out.printf("Введите координаты X и Y (от 1 до %d) через %s",fieldSizeX,"пробел");
             x=scan.nextInt()-1;
             y=scan.nextInt()-1;
-        }while(!isinField(x, y) || !isEmpty(field[x][y]));
+        }while(!isinField(x, y) || !isEmpty(field[y][x]));
         field[y][x] = DOT_HUMAN;
     }
 
     private static boolean isEmpty(char c) {
         return c == DOT_EMPTY;
-    }
-    private static boolean isinField(int x, int y) {
-        return x >= 0 && x < fieldSizeX && y >= 0 && x < fieldSizeY;
-    }
-   //проверяем пустоту следующих lengthWin элементов
-
+    }//Проверяем значение в ячейке
+    private static boolean isinField(int x, int y){return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;}//Проверяем не улетела ли ячейка
    private static int countEnemy(int x,int y,int plusX,int plusY) {
        int i = 1;
        for (int k = 0; k < lengthWin; k++) {
            if (field[y + k * plusY][x + k * plusX] == DOT_HUMAN) {
                i *= 3;
            } else if (field[y + k * plusY][x + k * plusX] == DOT_AI) {
-               return 0;
-           }
+           return 0;
+       }else{i+=1;}
        }
        return i;
-   }
-    private static int canWin(int x,int y,int plusX,int plusY){
+   }//Оцениваем силы противника и наши возможности
+    private static int countSymb(int x,int y,int plusX,int plusY,char c) {
         int i = 0;
+        if(isinField(x+(lengthWin-1)*plusX,y+(lengthWin-1)*plusY))
         for (int k = 0; k < lengthWin; k++)
-            if (field[y + k * plusY][x + k * plusX] == DOT_AI)
+            if (field[y + k * plusY][x + k * plusX] == c)
                 i += 1;
-            if(lengthWin-i==1)
-                return 50;
-            return 0;
-
-    }
-
+            return i;
+    }//Вычисляем кол-во победных символов в линии
     private static void fillNext(int x,int y,int plusX,int plusY){
+        if(isinField(x+(lengthWin-1)*plusX,y+(lengthWin-1)*plusY))
         for (int k = 0; k < lengthWin; k++) {
             if (isEmpty(field[y + k * plusY][x + k * plusX]))
-                fieldValue[y + k * plusY][x + k * plusX] += countEnemy(x, y, plusX, plusY);
+                fieldValue[y + k * plusY][x + k * plusX] += countEnemy(x,y,plusX,plusY);
             if (isEmpty(field[y + k * plusY][x + k * plusX]))
-                fieldValue[y + k * plusY][x + k * plusX] += canWin(x,y,plusX,plusY);
+                fieldValue[y + k * plusY][x + k * plusX] += (lengthWin-countSymb(x,y,plusX,plusY,DOT_AI)==1)?50:1;
         }
+        if(!isEmpty(field[y][x]))fieldValue[y][x]=0;
     }
     private static void aiTurn(){
         fieldCheckValue();
@@ -121,42 +117,58 @@ public class TicTacToeMy {
     }
     private static void fieldCheckValue(){
         clearFieldValue();
-        checkDiagonal();
-        checkHor();
-        checkVert();
-    }
-    private static void checkDiagonal(){
-        for (int i=0;i<=fieldSizeY-lengthWin;i++){
-            for (int j=0;j<=fieldSizeX-lengthWin;j++){
-                fillNext(j,i,1,1);
-                //обратная диагональ
-                fillNext(fieldSizeX-1-j,i,-1,1);
-            }
-        }
-    }
-    private static void checkVert() {
-        for (int i = 0; i <= fieldSizeY-lengthWin; i++) {
+        for (int i=0;i<fieldSizeY;i++) {
             for (int j = 0; j < fieldSizeX; j++) {
-                    fillNext(j,i,0,1);
-
+                fillNext(j,i,1,1);
+                fillNext(fieldSizeX-1-j,i,-1,1);
+                fillNext(j,i,0,1);
+                fillNext(j,i,1,0);
             }
         }
     }
-    private static void checkHor() {
+    private static boolean isDraw() {
         for (int i = 0; i < fieldSizeY; i++) {
-            for (int j = 0; j <= fieldSizeX-lengthWin; j++) {
-                    fillNext(j,i,1,0);
+            for (int j = 0; j < fieldSizeX; j++) {
+                if (field[i][j] == DOT_EMPTY)
+                    return false;
             }
         }
+        return true;
     }
-
+    private static boolean checkWin(char C){
+        for (int y=0;y<fieldSizeY;y++){
+            for (int x=0;x<fieldSizeX;x++){
+                for (int k = 0; k < lengthWin; k++) {
+                    if (countSymb(fieldSizeX - 1 - y, x, -1, 1, C) == lengthWin) return true;
+                    if (countSymb(y, x, 1, 1, C) == lengthWin) return true;
+                    if (countSymb(y, x, 1, 0, C) == lengthWin) return true;
+                    if (countSymb(y, x, 0, 1, C) == lengthWin) return true;
+                }
+            }
+        }
+        return false;
+    }
     public static void main(String[] args){
         initField();
         while (true) {
             humanTurn();
-            //
+            if (checkWin(DOT_HUMAN)) {
+                System.out.print("\nHuman win!");
+                break;
+            }
+            if (isDraw()) {
+                System.out.println("Draw!");
+                break;
+            }
             aiTurn();
-            showValue();
+            if (checkWin(DOT_AI)){
+                System.out.print("\nAI win!");
+                break;
+            }
+            if (isDraw()) {
+                System.out.println("Draw!");
+                break;
+            }
         }
     }
 
