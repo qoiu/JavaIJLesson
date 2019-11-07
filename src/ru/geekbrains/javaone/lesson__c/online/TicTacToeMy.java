@@ -16,16 +16,6 @@ public class TicTacToeMy {
     private static final char DOT_AI = 'O';
     private static final char DOT_EMPTY = '.';
 
-    private static void showValue(){
-        for(int i=0;i<fieldSizeY;i++){
-            System.out.print("\n|");
-            for(int j=0;j<fieldSizeX;j++){
-                System.out.print(fieldValue[i][j] + "|");
-            }
-        }
-        System.out.print("\n----------");
-    }
-
     private static void initField(){
         fieldSizeX=5;
         fieldSizeY=5;
@@ -55,23 +45,13 @@ public class TicTacToeMy {
             y=scan.nextInt()-1;
         }while(!isinField(x, y) || !isEmpty(field[y][x]));
         field[y][x] = DOT_HUMAN;
+       showField();
     }
 
     private static boolean isEmpty(char c) {
         return c == DOT_EMPTY;
     }//Проверяем значение в ячейке
     private static boolean isinField(int x, int y){return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;}//Проверяем не улетела ли ячейка
-   private static int countEnemy(int x,int y,int plusX,int plusY) {
-       int i = 1;
-       for (int k = 0; k < lengthWin; k++) {
-           if (field[y + k * plusY][x + k * plusX] == DOT_HUMAN) {
-               i *= 3;
-           } else if (field[y + k * plusY][x + k * plusX] == DOT_AI) {
-           return 0;
-       }else{i+=1;}
-       }
-       return i;
-   }//Оцениваем силы противника и наши возможности
     private static int countSymb(int x,int y,int plusX,int plusY,char c) {
         int i = 0;
         if(isinField(x+(lengthWin-1)*plusX,y+(lengthWin-1)*plusY))
@@ -84,12 +64,14 @@ public class TicTacToeMy {
         if(isinField(x+(lengthWin-1)*plusX,y+(lengthWin-1)*plusY))
         for (int k = 0; k < lengthWin; k++) {
             if (isEmpty(field[y + k * plusY][x + k * plusX]))
-                fieldValue[y + k * plusY][x + k * plusX] += countEnemy(x,y,plusX,plusY);
+                fieldValue[y + k * plusY][x + k * plusX] += countSymb(x,y,plusX,plusY,DOT_HUMAN)*lengthWin;
+            //проверяем есть ли у противниеа шансы на победу
             if (isEmpty(field[y + k * plusY][x + k * plusX]))
                 fieldValue[y + k * plusY][x + k * plusX] += (lengthWin-countSymb(x,y,plusX,plusY,DOT_AI)==1)?50:1;
+            //Находим возможность победить
         }
         if(!isEmpty(field[y][x]))fieldValue[y][x]=0;
-    }
+    }//Магический метод вычисляющий
     private static void aiTurn(){
         fieldCheckValue();
         int pX=0;
@@ -101,20 +83,19 @@ public class TicTacToeMy {
                     pX=x;
                     pY=y;
                     max=fieldValue[y][x];
-    }
-}
+                }
+            }
         }
-
-                field[pY][pX]=DOT_AI;
-                showField();
-    }
+        field[pY][pX]=DOT_AI;
+        showField();
+    }//Ход ИИ
     private static void clearFieldValue(){
         for (int y=0;y<fieldSizeY;y++){
             for (int x=0;x<fieldSizeX;x++) {
             fieldValue[y][x]=0;
             }
         }
-    }
+    }//Обнуление FieldValue
     private static void fieldCheckValue(){
         clearFieldValue();
         for (int i=0;i<fieldSizeY;i++) {
@@ -125,7 +106,7 @@ public class TicTacToeMy {
                 fillNext(j,i,1,0);
             }
         }
-    }
+    }//начинаем проверку по вертикали, горизонтали, диагонали
     private static boolean isDraw() {
         for (int i = 0; i < fieldSizeY; i++) {
             for (int j = 0; j < fieldSizeX; j++) {
@@ -134,7 +115,7 @@ public class TicTacToeMy {
             }
         }
         return true;
-    }
+    }//проверка ничьей
     private static boolean checkWin(char C){
         for (int y=0;y<fieldSizeY;y++){
             for (int x=0;x<fieldSizeX;x++){
@@ -147,7 +128,7 @@ public class TicTacToeMy {
             }
         }
         return false;
-    }
+    }//проверка победы
     public static void main(String[] args){
         initField();
         while (true) {
@@ -171,5 +152,4 @@ public class TicTacToeMy {
             }
         }
     }
-
 }
