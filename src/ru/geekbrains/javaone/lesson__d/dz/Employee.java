@@ -15,11 +15,18 @@ public class Employee {
         this.position=position;
         this.phone=phone;
         this.salary=salary;
-        this.birthYear=2019-age;
+        this.birthYear=DZ04.curYear-age;
         id+=1;
     }
     public int getId(){
         return empId;
+    }
+    public static void raiseForOld(Employee[] emp,int after, int amount) {
+        for (int i = 0; i < emp.length; i++) {
+            if (emp[i].getAge() > after) {
+                emp[i].setSalary(emp[i].getSalary()+amount);
+            }
+        }
     }
     public String getName(){
         return name;
@@ -34,7 +41,7 @@ public class Employee {
         return salary;
     }
     public int getAge(){
-        return 2019-birthYear;
+        return DZ04.curYear-birthYear;
     }
     public void setSalary(int salary){
         this.salary=salary;
