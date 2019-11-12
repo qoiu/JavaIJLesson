@@ -9,5 +9,9 @@ public class Bird extends Animal {
     public Bird(String name,int speedLimit,float jumpLimit,int swimLimit){
         super(name,speedLimit,jumpLimit,swimLimit);
     }
+    public void swim(int distance){
+        System.out.println(name+": I can fly, but swimm...NEVER!!!!");
+
+    }
 
 }

@@ -8,7 +8,7 @@ public class DZ05 {
     public static void main(String[] args){
         Dog champ=new Dog("Scooby");
         Animal[] zoo={
-                new Cat("barsic"),
+                new Cat("Barsic"),
                 new Dog("Reks"),
                 new Bird("Kesha",20,0.3f,0)
         };
@@ -24,5 +24,7 @@ public class DZ05 {
 
         }
         champ.run(230);
+        zoo[0].swimm(100);
+        zoo[1].swimm(100);
     }
 }

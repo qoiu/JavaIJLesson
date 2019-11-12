@@ -10,5 +10,10 @@ public class Cat extends Animal {
         super(name,speedLimit,jumpLimit,swimLimit);
     }
 
+    public void swimm(int distance){
+        System.out.println(name+": I'm proud animal!!! I'll never swim!m!!");
+
+    }
+
 
 }

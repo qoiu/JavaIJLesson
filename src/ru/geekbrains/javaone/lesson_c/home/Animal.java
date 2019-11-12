@@ -1,17 +1,17 @@
 package ru.geekbrains.javaone.lesson_c.home;
 
 public abstract class Animal {
-    private String name;
-    private int speedLimit;
-    private float jumpLimit;
-    private int swimLimit;
+    protected String name;
+    protected int speedLimit;
+    protected float jumpLimit;
+    protected int swimmLimit;
 
 
-   protected Animal(String name,int speedLimit, float jumpLimit,int swimLimit){
+   protected Animal(String name,int speedLimit, float jumpLimit,int swimmLimit){
         this.name=name;
         this.speedLimit=speedLimit;
         this.jumpLimit=jumpLimit;
-        this.swimLimit=swimLimit;
+        this.swimmLimit=swimmLimit;
     }
     protected Animal(String name){
         this.name=name;
@@ -26,10 +26,10 @@ public abstract class Animal {
            System.out.println(name + " don't run");
        }
        }
-    public void swim(int distance){
-       if(swimLimit==0){
+    public void swimm(int distance){
+       if(swimmLimit==0){
            System.out.println(name+" can't swim");
-       } else if(distance<swimLimit){
+       } else if(distance<swimmLimit){
            System.out.println(name+" swim");
        }
 
@@ -40,10 +40,10 @@ public abstract class Animal {
     public void setName(String name){
         this.name=name;
     }
-    public void train(int speedLLim,float jumpLimit,int swimLimit){
+    public void train(int speedLLim,float jumpLimit,int swimmLimit){
        System.out.println(name+" finish train");
        this.speedLimit+=speedLLim;
        this.jumpLimit+=jumpLimit;
-       this.swimLimit+=swimLimit;
+       this.swimmLimit+=swimmLimit;
     }
 }
