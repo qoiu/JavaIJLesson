@@ -1,6 +1,5 @@
 package ru.geekbrains.javaone.lesson__c.online;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -37,6 +36,14 @@ public class TicTacToeMy {
         }
         System.out.print("\n-----------");
     }
+    private static void showValue(){
+        for(int i=0;i<fieldSizeY;i++){
+            System.out.print("\n|");
+            for(int j=0;j<fieldSizeX;j++){
+                System.out.print(fieldValue[i][j] + "|");
+            }
+        }
+    }
     private static void humanTurn(){
         int x,y;
         do {
@@ -62,9 +69,8 @@ public class TicTacToeMy {
     }//Вычисляем кол-во победных символов в линии
     private static void fillNext(int x,int y,int plusX,int plusY){
         if(isinField(x+(lengthWin-1)*plusX,y+(lengthWin-1)*plusY))
-        for (int k = 0; k < lengthWin; k++) {
-            if (isEmpty(field[y + k * plusY][x + k * plusX]))
-                fieldValue[y + k * plusY][x + k * plusX] += countSymb(x,y,plusX,plusY,DOT_HUMAN)*lengthWin;
+        setValue(x,y,plusX,plusY);
+            for (int k = 0; k < lengthWin; k++) {
             //проверяем есть ли у противниеа шансы на победу
             if (isEmpty(field[y + k * plusY][x + k * plusX]))
                 fieldValue[y + k * plusY][x + k * plusX] += (lengthWin-countSymb(x,y,plusX,plusY,DOT_AI)==1)?50:1;
@@ -72,6 +78,15 @@ public class TicTacToeMy {
         }
         if(!isEmpty(field[y][x]))fieldValue[y][x]=0;
     }//Магический метод вычисляющий
+    private static void setValue(int x, int y, int plusX, int plusY){
+        for (int k = 0; k < lengthWin; k++) {
+            int a = countSymb(x, y, plusX, plusY, DOT_HUMAN) * lengthWin;
+            if (isEmpty(field[y + k * plusY][x + k * plusX])) {
+                if (fieldValue[y + k * plusY][x + k * plusX] < a)
+                    fieldValue[y + k * plusY][x + k * plusX] = a;
+            }
+        }
+    }
     private static void aiTurn(){
         fieldCheckValue();
         int pX=0;
@@ -88,6 +103,7 @@ public class TicTacToeMy {
         }
         field[pY][pX]=DOT_AI;
         showField();
+        showValue();
     }//Ход ИИ
     private static void clearFieldValue(){
         for (int y=0;y<fieldSizeY;y++){
