@@ -7,8 +7,6 @@ public class DZ06 {
     private static Scanner scan=new Scanner(System.in);
     public static void main(String[] args) {
         concFiles("first.txt", "second.txt", "third.txt");
-       // System.out.println("London capital "+wordExist("London.txt","London capital"));
-       //System.out.println(folderSearch("London"));
         String find="";
         System.out.println("Введите слово и я проверю есть ли оно в папке");
         while (true){
