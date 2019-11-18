@@ -1,4 +1,12 @@
-chocolade
+cat
+dog
+butterfly
+horse
+snake
+crocodile
+elephant
+tiger
+zebrachocolade
 milk
 escimo
 water
@@ -11,3 +19,4 @@ caccao
 soup
 apple
 tomato
+

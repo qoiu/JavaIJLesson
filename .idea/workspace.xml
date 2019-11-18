@@ -20,6 +20,17 @@
   </component>
   <component name="ProjectId" id="1SxsPLMF7BriLROKsB4eEdCeOCu" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="extract.method.default.visibility" value="private" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\qoiu\IdeaProjects\World" />
+      <recent name="C:\Users\qoiu\IdeaProjects\World\src" />
+      <recent name="C:\Users\qoiu\IdeaProjects\World\src\ru\geekbrains\javaone\lesson_e\home" />
+      <recent name="C:\Users\qoiu\IdeaProjects\World\src\ru\geekbrains\javaone" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value=" System.out.println(&quot;Hello World!&quot;);" />

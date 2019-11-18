@@ -1,9 +1,0 @@
-cat
-dog
-butterfly
-horse
-snake
-crocodile
-elephant
-tiger
-zebra
