@@ -6,7 +6,8 @@ snake
 crocodile
 elephant
 tiger
-zebrachocolade
+zebra
+chocolade
 milk
 escimo
 water
