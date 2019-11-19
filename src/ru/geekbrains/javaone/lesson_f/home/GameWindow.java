@@ -27,7 +27,7 @@ class GameWindow extends JFrame {
         panelBottom.add(jb_Start);
         panelBottom.add(jb_Exit);
         map=new GameMap();
-        settings=new Settings();
+        settings=new Settings(this);
         add(map,BorderLayout.CENTER);
        add(panelBottom,BorderLayout.SOUTH);
         setVisible(true);
