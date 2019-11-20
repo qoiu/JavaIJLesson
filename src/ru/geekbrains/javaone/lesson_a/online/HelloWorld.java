@@ -23,13 +23,13 @@ import java.util.Scanner;
  */
 public class HelloWorld {
     public static void main(String[] args) {
-        //allTypes();
-        //System.out.println(calculation(2.0,3.0,7.0,5.0));
-        //System.out.println(inRange(7, 1));
-        //System.out.println(inputRange());
-        //System.out.println(isPositive(2));
-        //System.out.println(isNegative(2));
-       // hiName("Никита");
+        allTypes();
+        System.out.println(calculation(2.0,3.0,7.0,5.0));
+        System.out.println(inRange(7, 1));
+        System.out.println(inputRange());
+        System.out.println(isPositive(2));
+        System.out.println(isNegative(2));
+        hiName("Никита");
         leap();
     }
 
