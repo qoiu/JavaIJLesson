@@ -4,8 +4,10 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Settings extends JFrame {
+class Settings extends JFrame {
     private static final int WINDOW_WIDTH = 350;
     private static final int WINDOW_HEIGHT = 270;
     private GameWindow gameWindow;
@@ -32,7 +34,14 @@ public class Settings extends JFrame {
         setLayout(new GridLayout(11,1));
         addGameModeComponents();//Добавляем компоненты
         addFieldSizeControl();
-
+        JButton jbStart=new JButton("Start a game!!!");
+        jbStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onBtnStartGameClick();
+            }
+        });
+        add(jbStart);
     }
 
     private void addFieldSizeControl() {
@@ -64,7 +73,6 @@ public class Settings extends JFrame {
 
     }
 
-
     private void addGameModeComponents() {
         add(new JLabel("Choose game mode"));
         jrb_HvsAI=new JRadioButton("Human vs AI");
@@ -76,4 +84,22 @@ public class Settings extends JFrame {
         add(jrb_HvsAI);
         add(jrb_HvsH);
     }
+
+    private void onBtnStartGameClick(){
+        int gameMode;
+        if (jrb_HvsAI.isSelected()){
+            gameMode=GameMap.GM_HvsAI;
+        }else if(jrb_HvsH.isSelected()){
+            gameMode=GameMap.GM_HvsH;
+        }else{
+            throw new RuntimeException("Unexpectet game mode");
+        }
+
+        int fieldSizeX=jsl_SizeX.getValue();
+        int fieldSizeY=jsl_SizeY.getValue();
+        int winLength=jsl_WinCondition.getValue();
+        gameWindow.startNewGame(gameMode, fieldSizeX, fieldSizeY, winLength);
+        setVisible(false);
+    }
+
 }

@@ -1,8 +1,5 @@
 package ru.geekbrains.javaone.lesson_f.home;
 
-import javafx.scene.layout.Pane;
-
-import javax.management.ListenerNotFoundException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
