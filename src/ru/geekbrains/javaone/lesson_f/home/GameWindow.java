@@ -42,7 +42,7 @@ class GameWindow extends JFrame {
         });
 
     }
-    void startNewGame(int mode,int fieldSizeX, int fieldSizeY, int toWin) {
-        map.startNewGame(mode,fieldSizeX,fieldSizeY,toWin);
+    void startNewGame(GameSet gs) {
+        map.startNewGame(gs);
     }
 }
